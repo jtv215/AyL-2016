@@ -1,0 +1,98 @@
+package org.lya.practica2.ejercicio1;
+
+import org.lya.utilidades.ControlTime;
+
+public class Exponente {
+	private int base;
+	private int exponente;
+
+	public Exponente(int a, int n) {
+		this.base = a;
+		this.exponente = n;
+	}
+
+	public double exponenFuerzaBruta() {
+		if(exponente==0) 
+			return (1.0);
+				else if(exponente==1)
+		return this.base;
+				
+				int numero = this.base;
+				for(int i=0;i<exponente-1; i++){
+					numero*=this.base;
+				}
+				return numero;
+			}
+
+
+	public double exponenRecursivoDyV() {
+		return exponenRecursivoDyV (base, exponente);
+	}
+
+	private double exponenRecursivoDyV(int a, int n) {
+		if(n==1) 
+			return(a);
+		if(n==0) 
+			return (1.0);
+		if (n % 2 == 0)
+			return  Math.pow(exponenRecursivoDyV (a, n/2) ,2.0);
+					
+		else
+			return a * exponenRecursivoDyV (a, n-1);
+	}
+
+	public void setExpon(int expon) {
+		exponente = expon;
+	}
+
+	public static void main(String[] args) {
+		long tiempoTotal, tiempoMedioFB, tiempoMedioR, suma;
+		long []tiempos;
+		double j=0;
+	double k=0;
+		System.out.println("     N      T(N) FuerzaBruta      T(N) Recursivo     j          K");
+		for (int n=128; n<=32768; n=n*2) {
+
+			Exponente e = new Exponente (2,n);
+			tiempos = new long [10];
+
+			//REPETIR 10 veces:
+			for (int i=0; i<tiempos.length; i++) {
+				//ControlTime tim = new ControlTime();
+				long tiempoAntes = System.nanoTime();
+				j =e.exponenFuerzaBruta();
+				//tiempoTotal = tim.finalTime();
+				long tiempoDespues = System.nanoTime();
+				tiempoTotal = tiempoDespues - tiempoAntes;
+				tiempos[i] = tiempoTotal;
+			}
+			//Calcular TIEMPO MEDIO de fuerza bruta
+		    suma = 0;
+		    for (int i=0; i<tiempos.length; i++)
+		    	suma = suma + tiempos[i];
+			tiempoMedioFB = suma / tiempos.length;
+
+			//REPETIR 10 veces:
+			for (int i=0; i<tiempos.length; i++) {
+				//ControlTime tim = new ControlTime();
+				long tiempoAntes = System.nanoTime();
+				  k =e.exponenRecursivoDyV();
+				long tiempoDespues = System.nanoTime();
+				tiempoTotal = tiempoDespues - tiempoAntes;
+				tiempos[i] = tiempoTotal;
+			}
+			//Calcular TIEMPO MEDIO de recursivo
+		    suma = 0;
+		    for (int i=0; i<tiempos.length; i++)
+		    	suma = suma + tiempos[i];
+			tiempoMedioR = suma / tiempos.length;
+
+			//IMPRIMIR RESULTADO:
+			System.out.printf(" %5d %21d %18d/n" , n,
+					tiempoMedioFB, tiempoMedioR );
+			System.out.println("  "+  j+"    "+k );
+			
+
+		}
+	}
+}

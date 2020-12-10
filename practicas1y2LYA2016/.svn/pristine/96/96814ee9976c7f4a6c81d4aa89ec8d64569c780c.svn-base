@@ -1,0 +1,69 @@
+package org.lya.practica1.ejercicio1;
+
+import org.lya.utilidades.NumerosAleatorios;
+
+/** clase secuencia enteros.
+ * representa un conjunto de números enteros, pueden ser negativos
+ *
+ */
+public class SecuenciaEnteros {
+
+
+	/**
+	 * Numero de elementos de la secuencia
+	 */
+	private int rango;
+
+	/**
+	 * Array con los valores de la secuencia: a_1, a_2,... a_n
+	 */
+	private int[] valoresSecuencia;
+
+	/**
+	 * Constructor.
+	 * El array ya ha sido creado.
+	 * @param datos
+	 */
+
+	public SecuenciaEnteros(int[] datos) {
+		valoresSecuencia = datos;
+		rango = datos.length;
+
+	}
+
+	/**
+	 * Constructor.
+	 * Genera los enteros de la secuencia aleatoriamente entre -rango y rango
+	 * @param  Numero de elementos de la secuencia
+	 * @param rango  de valores
+	 */
+	public SecuenciaEnteros(int numElem, int rango) {
+		this.rango=rango;
+//		numeroElementos = numElem;
+		this.valoresSecuencia = new int[numElem];
+		
+		NumerosAleatorios numRand = new NumerosAleatorios();
+			for(int i=0; i<rango; i++){
+				valoresSecuencia[i]= numRand.randomInt(rango*-1, rango);
+			}
+	}
+
+	public int getNumeroElementos() {
+		return rango;
+	}
+
+	public void setNumeroElementos(int numeroElementos) {
+		this.rango = numeroElementos;
+	}
+
+	public int[] getValoresSecuencia() {
+		return valoresSecuencia;
+	}
+
+	public void setValoresSecuencia(int[] valoresSecuencia) {
+		this.valoresSecuencia = valoresSecuencia;
+	}
+
+}
+
+
